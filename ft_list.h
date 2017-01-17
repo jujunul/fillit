@@ -16,10 +16,22 @@
 # include <stdlib.h>
 # include <ctype.h>
 
-typedef struct		s_list
+
+typedef struct			s_elem
 {
-	struct s_list	*next;
-	char			**tetri;
-}					t_list;
+	char				**tetri;
+	struct s_elem		*next;
+}						t_element;
+
+typedef	struct			s_list
+{
+	char				**tetri;
+	struct s_elem		*first;
+}						t_list;
+
+void		init_list(t_list *list);
+int			add_elem(t_list liste, char **tetri);
+void		aff_list(llist list);
+void		free_list(t_list *list);
 
 #endif

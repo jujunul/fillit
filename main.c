@@ -48,13 +48,6 @@ int			ft_isvalid(char *buf)
 	}
 }
 
-int			ft_startparsing(char *buf, int i)
-{
-	char **tetri;
-	
-	if (!(tetri = (char **)malloc(sizeof(char*) * 5)	
-}
-
 int			ft_checkfile(char *av)
 {
 	int 	fd;
@@ -79,8 +72,66 @@ int			ft_checkfile(char *av)
 
 }
 
+int			ft_startparsing(char *buf, int i)
+{
+	char **tetri;
+	
+	if (!(tetri = (char **)malloc(sizeof(char*)) * 5))
+	/* lire le fichier en boucle */
+	add_elem(&list, tetri);
+}
+
+void		init_list(t_list *list)
+{
+	list->tetri = NULL;
+	list->first = NULL;
+}
+
+int			add_elem(t_list *liste, char **tetri)
+{
+	t_elem	*elem;
+
+	if ((elem = malloc(sizeof(*elem))) == NULL)
+		return (1);
+	elem->tetri = tetri;
+	elem->next = liste->first;
+	/* **(list->tetri); ? */
+	list->first = elem;
+	return (0);
+}
+
+void		aff_list(llist *list)
+{
+	t_elem	*elem;
+
+	elem = list->first;
+	while (elem)
+	{
+		printf("%d\n", elem->tetri);
+		elem = elem->next;
+	}
+}
+
+void		free_list(t_list *list)
+{
+	t_elem	*elem;
+
+	elem = list->first;
+	while (elem)
+	{
+		free(elem);
+		elem = elem->next;
+	}
+}
+
 int			main(int ac, char **av)
 {
+	t_list	list;
+
+	init_list(&list);
+	add_elem(&list, tetri);
+	aff_list(&list);
+	free_list(&list);
 	if (ac != 2)
 		return (0);
 	if (!(ft_checkfile(av[1])))	

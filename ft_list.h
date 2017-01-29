@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 10:42:09 by juthierr          #+#    #+#             */
-/*   Updated: 2017/01/11 18:29:04 by juthierr         ###   ########.fr       */
+/*   Updated: 2017/01/29 18:21:45 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 # define FT_LIST_H
 
 # include <stdlib.h>
-# include <ctype.h>
-
 
 typedef struct			s_elem
 {
 	char				**tetri;
+	char				ltetri;
 	struct s_elem		*next;
-}						t_element;
+}						t_elem;
 
-typedef	struct			s_list
+typedef	struct			s_env
 {
-	char				**tetri;
 	struct s_elem		*first;
-}						t_list;
+}						t_env;
 
+size_t		ft_strlen(char *str);
 void		init_list(t_list *list);
-int			add_elem(t_list liste, char **tetri);
-void		aff_list(llist list);
+void		aff_list(t_list list);
 void		free_list(t_list *list);
 
 #endif

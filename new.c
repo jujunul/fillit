@@ -6,7 +6,7 @@
 /*   By: juthierr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 17:37:55 by juthierr          #+#    #+#             */
-/*   Updated: 2017/01/30 19:52:10 by juthierr         ###   ########.fr       */
+/*   Updated: 2017/01/30 20:14:23 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void			ft_puterror(void)
 	exit (0);
 }
 
-int				ft_isvalid(char *buf)
+void				ft_isvalid(char *buf)
 {
 	int i;
 	int nb;
@@ -37,7 +37,6 @@ int				ft_isvalid(char *buf)
 	}
 	if (nb != 4)
 		ft_puterror();
-	return (1);
 }
 
 int				ft_addelem(t_env *env, t_elem *list, t_elem *new)
@@ -61,6 +60,29 @@ int				ft_addelem(t_env *env, t_elem *list, t_elem *new)
 	return (0);
 }
 
+void			ft_do_list(char *buf, t_elem *new, t_env *env, t_elem *list)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	k = 0;
+	while (k < 4)
+	{
+		j = 0;
+		while (buf[i] != \n)
+		{
+			new->tetri[k][j] = buf[i];
+			j++;
+			i++;
+		}
+		i++;
+		k++;
+	}
+	ft_addelem(env, list, new);
+}
+
 int				ft_startparsing(char *buf, int ltetri, t_env *env, t_elem *list)
 {
 	char	**tetri;
@@ -76,27 +98,10 @@ int				ft_startparsing(char *buf, int ltetri, t_env *env, t_elem *list)
 		return (0);
 	new->tetri[4] = '\0';
 	while (new->tetri[i])
-	{
-		if (!(new->tetri[i] = ft_strnew(5)))
+		if (!(new->tetri[i++] = ft_strnew(5)))
 			return (0);
-		i++;
-	}
-	i = 0;
-	k = 0;
-	while (k < 4)
-	{
-		j = 0;
-		while (buf[i] != \n)
-		{
-			new->tetri[k][j] = buf[i];
-			i++;
-			j++;
-		}
-		k++;
-		i++;
-	}
 	new->letter = ltetri;
-	ft_addelem(env, list, new);
+	ft_do_list(buf, new, env, list);
 	return (1);
 }
 
@@ -192,8 +197,7 @@ int				ft_checkfile(char *av, t_env *env, t_elem *list)
 		ft_puterror();
 	while (read(fd, buf, 21))
 	{
-		if (!(ft_isvalid(buf)))
-			return (0);
+		ft_isvalid(buf);
 		ft_startparsing(buf, ltetri, env, list);
 		ltetri++;
 	}
@@ -202,7 +206,7 @@ int				ft_checkfile(char *av, t_env *env, t_elem *list)
 //	env->len_map =  (4 * ltetri);
 //	do len_map + **map;
 //
-	ft_checktetri(env)
+	ft_checktetri(env);
 	return (1);
 }
 
@@ -219,7 +223,8 @@ int				main(int ac, char **av)
 		return (0);
 	list->next = NULL;
 	env->first = list;
-	ft_checkfile(av[1], env, list);
+	if (!(ft_checkfile(av[1], env, list)))
+		return (0);
 	ft_algo(list, env);
 	ft_puttabstr(env->map);
 	return (0);

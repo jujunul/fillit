@@ -6,7 +6,7 @@
 /*   By: juthierr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 17:37:55 by juthierr          #+#    #+#             */
-/*   Updated: 2017/01/30 19:43:34 by juthierr         ###   ########.fr       */
+/*   Updated: 2017/01/30 19:52:10 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_addelem(t_env *env, t_elem *list, t_elem *new)
 	if (env->first->tetri == NULL)
 	{
 		env->first->tetri = new->tetri;
-		env->first->ltetri = new->ltetri;
+		env->first->letter = new->letter;
 		return (0);
 	}
 	while (tmp->next != NULL)
@@ -197,10 +197,12 @@ int				ft_checkfile(char *av, t_env *env, t_elem *list)
 		ft_startparsing(buf, ltetri, env, list);
 		ltetri++;
 	}
-	env->len_map =  (4 * ltetri);
-	
-	if (!(ft_checktetri(env)))
-		return (0);
+//
+//
+//	env->len_map =  (4 * ltetri);
+//	do len_map + **map;
+//
+	ft_checktetri(env)
 	return (1);
 }
 
@@ -219,5 +221,6 @@ int				main(int ac, char **av)
 	env->first = list;
 	ft_checkfile(av[1], env, list);
 	ft_algo(list, env);
+	ft_puttabstr(env->map);
 	return (0);
 }

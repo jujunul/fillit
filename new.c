@@ -6,7 +6,7 @@
 /*   By: juthierr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 17:37:55 by juthierr          #+#    #+#             */
-/*   Updated: 2017/01/30 20:14:23 by juthierr         ###   ########.fr       */
+/*   Updated: 2017/01/31 15:12:26 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			ft_puterror(void)
 {
-	write(2, "error\n", ft_strlen("error\n"));
+	write(1, "error\n", ft_strlen("error\n"));
 	exit (0);
 }
 
@@ -184,6 +184,20 @@ void			ft_checktetri(t_env *env)
 	}
 }
 
+int				ft_start_map(int ltetri, t_env *env)
+{
+	int i;
+	int len_min;
+
+	len_min = ltetri * 4;
+	while ((i * i) < len_min)
+		i++;
+	env->len_map = i;
+	if(!(ft_malloc_map(env)))
+		return (0);
+	return (1);
+}
+
 int				ft_checkfile(char *av, t_env *env, t_elem *list)
 {
 	int			fd;
@@ -201,12 +215,41 @@ int				ft_checkfile(char *av, t_env *env, t_elem *list)
 		ft_startparsing(buf, ltetri, env, list);
 		ltetri++;
 	}
-//
-//
-//	env->len_map =  (4 * ltetri);
-//	do len_map + **map;
-//
+	if (!(ft_start_map(ltetri, env)))
+		return (0);
 	ft_checktetri(env);
+	return (1);
+}
+
+void			ft_free_map(t_env *env)
+{
+	int y;
+
+	y = 0;
+	while (env->map[y])
+	{
+		free(env->map[y]);
+		y++;
+	}
+	free(env->map);
+}
+
+
+int				ft_malloc_map(t_env *env)
+{
+	int y;
+
+	y = 0;
+	if (!(env->map = (char **)malloc(sizeof(char*) * env->len_map + 1)))
+		return (0);
+	env->map[(env->len_map + 1)] = '\0';
+	while (env->map[y])
+	{
+		if (!(env->map[y] = ft_strnew(env->len_map + 1)))
+			return (0);
+		env->map[y][(env->len_map + 1)] = '\0';
+		y++;
+	}
 	return (1);
 }
 
@@ -225,7 +268,13 @@ int				main(int ac, char **av)
 	env->first = list;
 	if (!(ft_checkfile(av[1], env, list)))
 		return (0);
-	ft_algo(list, env);
+	while (ft_algo(list, env))
+	{
+		env->len_map++;
+		ft_free_map(env);
+		if(!(ft_malloc_map(env)))
+			return (0);
+	}
 	ft_puttabstr(env->map);
 	return (0);
 }

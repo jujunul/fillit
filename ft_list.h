@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 10:42:09 by juthierr          #+#    #+#             */
-/*   Updated: 2017/02/03 17:35:02 by juthierr         ###   ########.fr       */
+/*   Updated: 2017/02/03 19:02:47 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef	struct			s_env
 	int					x_first;
 	int					y;
 	int					x;
+	int					nbtetri;
 }						t_env;
 
 int						ft_algo(t_elem *elem, t_env *env);

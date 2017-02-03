@@ -6,7 +6,7 @@
 /*   By: juthierr <juthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 10:42:09 by juthierr          #+#    #+#             */
-/*   Updated: 2017/01/30 19:42:36 by juthierr         ###   ########.fr       */
+/*   Updated: 2017/02/03 17:35:02 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define FT_LIST_H
 
 # include <stdlib.h>
+# include <libft.h>
+# include <stdio.h>
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 typedef struct			s_elem
 {
@@ -27,11 +32,17 @@ typedef	struct			s_env
 	struct s_elem		*first;
 	char				**map;
 	int					len_map;
+	int					y_first;
+	int					x_first;
+	int					y;
+	int					x;
 }						t_env;
 
 int						ft_algo(t_elem *elem, t_env *env);
-void					put_in_map(t_elem *elem, t_env *env, int x, int y);
-int						do_tetri_fit(t_elem *elem, t_env *env, int x, int y);
+void					put_in_map(t_elem *elem, t_env *env);
+int						do_tetri_fit(t_elem *elem, t_env *env);
 void					take_out_of_map(t_elem *elem, t_env *env);
+void					save_prev(t_env *env, int t_y, int t_x);
+int						tetri_is_not_in_condition(t_env *env, int t_y, int t_x);
 
 #endif

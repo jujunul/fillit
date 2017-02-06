@@ -46,6 +46,7 @@ int				ft_checkfile(char *av, t_env *env, t_elem *list)
 	int			fd;
 	char		*buf;
 	int			ltetri;
+	char		tmp;
 
 	ltetri = 0;
 	if (!(buf = ft_strnew(22)))
@@ -57,7 +58,11 @@ int				ft_checkfile(char *av, t_env *env, t_elem *list)
 		ft_isvalid(buf);
 		ft_startparsing(buf, ltetri, env, list);
 		ltetri++;
+		tmp = buf[20];
+		ft_bzero(buf, 21);
 	}
+	if (tmp == '\n')
+		ft_puterror();
 	if (!(ft_start_map(ltetri, env)))
 		return (0);
 	ft_checktetri(env);

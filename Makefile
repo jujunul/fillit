@@ -2,9 +2,12 @@ NAME = fillit
 
 INC = -I./includes/ -I./libft/
 
-SRC = main.c\
-	  algo.c\
-	  tetri_in_map.c
+SRC = algo.c \
+		ft_check.c \
+		ft_error.c \
+		ft_parcing.c \
+		main.c \
+		tetri_in_map.c
 
 OBJ = $(SRC:.c=.o)
 

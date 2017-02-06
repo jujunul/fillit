@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putabstr.c                                      :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juthierr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/25 14:51:26 by juthierr          #+#    #+#             */
-/*   Updated: 2016/11/25 15:01:41 by juthierr         ###   ########.fr       */
+/*   Created: 2017/02/06 03:19:51 by juthierr          #+#    #+#             */
+/*   Updated: 2017/02/06 03:19:52 by juthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
 
-void		ft_putabstr(char **tab)
+void			ft_puterror(void)
 {
-	int i;
-
-	i = -1;
-	while (tab[++i])
-	{
-		ft_putstr(tab[i]);
-		ft_putstr("\n");
-	}
+	write(1, "error\n", 6);
+	exit(0);
 }

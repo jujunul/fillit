@@ -23,7 +23,7 @@ void		take_out_of_map(t_elem *elem, t_env *env)
 		x = 0;
 		while (x < env->len_map)
 		{
-			if (env->map[y][x] == elem->letter)
+			if (env->map[y][x] == elem->letter + 65)
 				env->map[y][x] = '.';
 			x++;
 		}
@@ -37,14 +37,16 @@ void		save_prev(t_env *env, int t_y, int t_x)
 	env->x_first = t_x;
 }
 
-int			tetri_is_not_in_condition(t_env *env, int t_y, int t_x)
+int			tetri_is_not_in_condition(t_env *env, int y, int x)
 {
-	if ((t_y - env->y_first + env->y >= 0
-	&& t_y - env->y_first + env->y < env->len_map)
-	&& (t_x - env->x_first + env->x >= 0
-	&& t_x - env->x_first + env->x < env->len_map)
-	&& (env->map[t_y - env->y_first + env->y]
-		[t_x - env->x_first + env->x] != '.'))
-		return (1);
-	return (0);
+	if (env->t_y - env->y_first + y >= 0
+		&& env->t_y - env->y_first + y < env->len_map
+		&& env->t_x - env->x_first + x >= 0
+		&& env->t_x - env->x_first + x < env->len_map
+		&& env->map[env->t_y - env->y_first + y]
+		[env->t_x - env->x_first + x] == '.')
+	{
+		return (0);
+	}
+	return (1);
 }

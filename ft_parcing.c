@@ -30,6 +30,8 @@ void			ft_isvalid(char *buf)
 			ft_puterror();
 		i++;
 	}
+	if (buf[19] != '\n')
+		ft_puterror();
 	if (nb != 4)
 		ft_puterror();
 }
